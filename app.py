@@ -9,6 +9,36 @@ import seaborn as sns
 
 # Set page configuration to wide mode
 st.set_page_config(layout="wide")
+st.markdown("""
+    <style>
+        .top-bar {
+            background-color: #1E1E2E;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .top-bar img {
+            height: 40px;
+        }
+        .top-bar h1 {
+            color: white;
+            font-size: 20px;
+            margin: 0;
+            padding-left: 10px;
+        }
+    </style>
+    <div class="top-bar">
+        <img src="https://via.placeholder.com/100x40" alt="AI Contracts">
+        <h1>AI Contract Manager</h1>
+    </div>
+    <br><br><br>  <!-- Add spacing so content doesn't get hidden under the fixed bar -->
+""", unsafe_allow_html=True)
 
 # Contract data as a single inline JSON payload
 contract_data_json = '''
