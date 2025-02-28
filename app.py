@@ -264,29 +264,33 @@ df = pd.DataFrame(contract_data["contracts"])
 # Streamlit UI
 st.title("Contract Management Dashboard")
 
+# Sidebar filters
+st.sidebar.header("Filter Contracts")
+client_filter = st.sidebar.text_input("Search Client", "")
+status_filter = st.sidebar.selectbox("Status", ["All"] + sorted(df["Status"].unique()))
+type_filter = st.sidebar.selectbox("Contract Type", ["All"] + sorted(df["Contract Type"].unique()))
+min_amount, max_amount = st.sidebar.slider(
+    "Contract Amount Range ($)",
+    int(df["Contract Amount ($)"].min()),
+    int(df["Contract Amount ($)"].max()),
+    (int(df["Contract Amount ($)"].min()), int(df["Contract Amount ($)"].max()))
+)
+
+# Apply Filters
+df = df[
+    (df["Client Name"].str.contains(client_filter, case=False, na=False) if client_filter else True) &
+    (df["Status"] == status_filter if status_filter != "All" else True) &
+    (df["Contract Type"] == type_filter if type_filter != "All" else True) &
+    (df["Contract Amount ($)"] >= min_amount) & (df["Contract Amount ($)"] <= max_amount)
+]
+
 # Create tabs
 tabs = st.tabs(["Contracts", "📊 Contract Data Insights"])
 # Tab 1: Contract Management Grid View
 with tabs[0]:
     # Create two columns for layout: contracts list on left, details on right
-    left_col, middle_col, right_col = st.columns([1.5,7, 4])
-    with left_col:
-        st.markdown("")
-        st.markdown("")
-        st.markdown("")
-        st.markdown("")
-        client_filter = st.text_input("Search ID", "")
-        status_filter = st.selectbox("Status", ["All"] + sorted(df["Status"].unique()))
-        type_filter = st.selectbox("Contract Type", ["All"] + sorted(df["Contract Type"].unique()))
-
-       
-        # Apply filters
-        #filtered_df = df[
-        #    (df["Client Name"].str.contains(client_filter, case=False) if client_filter else True)
-        #    &(df["Status"] == status_filter if status_filter != "All" else True)
-        #    & (df["Contract Type"] == type_filter if type_filter != "All" else True)
-        #]
-    with middle_col:    
+    left_col, right_col = st.columns([7, 4])
+    with left_col:    
         # Display column headers
         header_cols = st.columns([1, 2.5, 1.5, 1.2, 1.2, 1.5, 1.5, 1])
         with header_cols[0]:
