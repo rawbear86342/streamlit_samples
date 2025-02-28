@@ -9,6 +9,18 @@ import seaborn as sns
 
 # Set page configuration to wide mode
 st.set_page_config(layout="wide")
+# Custom CSS for controlling sidebar width
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            min-width: 300px;  /* Adjust this value */
+            max-width: 350px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.markdown("""
     <style>
         .top-bar {
