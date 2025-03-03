@@ -3,26 +3,6 @@ import pandas as pd
 
 # Mock software taxonomy (simplified for visualization)
 software_taxonomy = {
-    "Cloud Services": {
-        "IaaS": {
-            "Compute": ["Virtual Machines", "Containers"],
-            "Storage": ["Object Storage", "Block Storage"],
-        },
-        "PaaS": {
-            "Databases": ["Managed SQL", "NoSQL"],
-            "Application Development": ["Serverless Functions"],
-        },
-    },
-    "Software Applications": {
-        "ERP": {
-            "Finance": ["General Ledger"],
-            "Human Resources": ["Payroll"],
-        },
-        "CRM": {
-            "Sales": ["Lead Management"],
-            "Marketing": ["Email Campaigns"],
-        },
-    },
 }
 
 # Mock software classification output
