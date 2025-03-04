@@ -307,25 +307,37 @@ df = pd.DataFrame(contract_data["contracts"])
 # Streamlit UI
 st.title("Contract Management Dashboard")
 
-# Sidebar filters
-st.sidebar.header("Filter Contracts")
-client_filter = st.sidebar.text_input("Search Client", "")
-status_filter = st.sidebar.selectbox("Status", ["All"] + sorted(df["Status"].unique()))
-type_filter = st.sidebar.selectbox("Contract Type", ["All"] + sorted(df["Contract Type"].unique()))
-min_amount, max_amount = st.sidebar.slider(
-    "Contract Amount Range ($)",
-    int(df["Contract Amount ($)"].min()),
-    int(df["Contract Amount ($)"].max()),
-    (int(df["Contract Amount ($)"].min()), int(df["Contract Amount ($)"].max()))
-)
+# This sidebar content changes based on the active tab
+with st.sidebar:
+    if st.session_state.active_tab == "Contracts":
+        st.write("### Filter Contracts")
+        client_filter = st.text_input("Search Client", "")
+        status_filter = st.selectbox("Status", ["All", "Active", "Pending", "Under Review", "Completed", "Renewed"])
+        type_filter = st.selectbox("Contract Type", ["All", "Service", "Licensing", "Partnership", "Employment", "Vendor", "Lease"])
+        min_amount, max_amount = st.slider("Contract Amount Range ($)", 0, 200000, (0, 200000))
+        
+        # Apply Sidebar Filters
+        filtered_df = df[
+            (df["Client Name"].str.contains(client_filter, case=False, na=False) if client_filter else True) &
+            (df["Status"] == status_filter if status_filter != "All" else True) &
+            (df["Contract Type"] == type_filter if type_filter != "All" else True) &
+            (df["Contract Amount ($)"] >= min_amount) & (df["Contract Amount ($)"] <= max_amount)
+        ]
+    else:  # Data Insights tab
+        st.write("### Data Insights Options")
+        contracts_df = pd.json_normalize(contract_data['contracts'])
 
-# Apply Filters
-df = df[
-    (df["Client Name"].str.contains(client_filter, case=False, na=False) if client_filter else True) &
-    (df["Status"] == status_filter if status_filter != "All" else True) &
-    (df["Contract Type"] == type_filter if type_filter != "All" else True) &
-    (df["Contract Amount ($)"] >= min_amount) & (df["Contract Amount ($)"] <= max_amount)
-]
+        # Sidebar Filters
+        status_filter = st.sidebar.multiselect('Select Status', options=contracts_df['Status'].unique(), default=contracts_df['Status'].unique())
+        department_filter = st.sidebar.multiselect('Select Department', options=contracts_df['Department'].unique(), default=contracts_df['Department'].unique())
+        priority_filter = st.sidebar.multiselect('Select Priority', options=contracts_df['Priority'].unique(), default=contracts_df['Priority'].unique())
+
+        # Apply filters to DataFrame
+        filtered_df = contracts_df[
+            contracts_df['Status'].isin(status_filter) &
+            contracts_df['Department'].isin(department_filter) &
+            contracts_df['Priority'].isin(priority_filter)
+        ]
 
 # Create tabs
 tabs = st.tabs(["Contracts", "📊 Contract Data Insights"])
