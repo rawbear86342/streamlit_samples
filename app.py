@@ -12,11 +12,42 @@ st.set_page_config(layout="wide")
 # Custom CSS for controlling sidebar width
 st.markdown(
     """
+    
     <style>
         [data-testid="stSidebar"] {
             min-width: 300px;  /* Adjust this value */
             max-width: 350px;
         }
+    
+    * Style for menu tab */
+    div[data-baseweb="tab-list"] button {
+        font-size: 22px !important; /* Larger font size */
+        font-weight: bold !important;
+        padding: 12px 24px !important; /* Better spacing */
+        border: none !important;
+        background-color: #f8f9fa !important; /* Subtle background */
+        color: #333 !important; /* Darker text for contrast */
+        border-radius: 8px 8px 0 0 !important; /* Rounded top corners */
+    }
+    
+    /* Active tab styling */
+    div[data-baseweb="tab-list"] button[aria-selected="true"] {
+        background-color: rgba(255, 255, 255, 0.9) !important; /* Subtle white for active tab */
+        border-bottom: 3px solid #007BFF !important; /* Highlight active tab */
+    }
+    
+    /* Style for contract details panel */
+    .contract-details {
+        font-size: 18px !important;
+        background: white !important;
+        padding: 20px !important;
+        border-radius: 8px !important;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+        margin-top: -2px !important; /* Seamless connection with tabs */
+    }
+    
+    
+    
     </style>
     """,
     unsafe_allow_html=True
