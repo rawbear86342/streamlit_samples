@@ -91,3 +91,40 @@ st.markdown(
 # Your Streamlit app content
 st.sidebar.header("Sidebar with Custom Styles")
 st.sidebar.write("This is a transparent sidebar with no arrow.")
+
+
+
+# Custom CSS for styling
+st.markdown(
+    """
+    <style>
+        /* Position the sidebar starting from a specific location */
+        .css-1d391kg {
+            position: fixed !important;
+            top: 100px; /* Adjust this value to control where the sidebar starts */
+            left: 0;
+            bottom: 0;
+            width: 250px; /* Adjust the width as per your requirement */
+            z-index: 1000;
+        }
+
+        /* Ensure the header wraps around the sidebar */
+        .css-1hbfdn5 {
+            margin-left: 250px; /* This margin should match the sidebar width */
+            padding-top: 100px; /* Adjust this to move the header down if needed */
+        }
+
+        /* Optional: Remove background or style the header */
+        .css-1hbfdn5 {
+            background-color: transparent !important;
+            color: #000; /* Black text or any other color */
+        }
+        
+        /* Optional: Style the sidebar's inner content */
+        .css-1mcpo5g {
+            color: #000;  /* Black text in the sidebar */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
