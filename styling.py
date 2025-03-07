@@ -158,3 +158,48 @@ st.markdown(f'<img class="banner-image" src="{image_path}" />', unsafe_allow_htm
 # Main content
 st.header("Welcome to the App!")
 st.write("This is an app with a custom banner image at the top.")
+
+
+
+import streamlit as st
+
+# Initialize session state for button clicks
+if "approved" not in st.session_state:
+    st.session_state.approved = False
+if "rejected" not in st.session_state:
+    st.session_state.rejected = False
+
+# Function to handle button clicks
+def approve():
+    st.session_state.approved = True
+    st.session_state.rejected = False  # Reset reject state
+
+def reject():
+    st.session_state.approved = False  # Reset approve state
+    st.session_state.rejected = True
+
+# Button styling
+approve_style = "background-color: green; color: white; font-size: 16px; padding: 8px 16px; border-radius: 5px;" if st.session_state.approved else ""
+reject_style = "background-color: red; color: white; font-size: 16px; padding: 8px 16px; border-radius: 5px;" if st.session_state.rejected else ""
+
+# Display buttons with styles
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("👍 Approve", on_click=approve, key="approve"):
+        st.write("✅ Approved!")
+
+with col2:
+    if st.button("👎 Reject", on_click=reject, key="reject"):
+        st.write("❌ Rejected!")
+
+# Show styled buttons dynamically
+st.markdown(
+    f"""
+    <style>
+        div[data-testid="stButton"] button:nth-of-type(1) {{ {approve_style} }}
+        div[data-testid="stButton"] button:nth-of-type(2) {{ {reject_style} }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
