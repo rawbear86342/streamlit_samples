@@ -128,3 +128,33 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+
+
+
+import streamlit as st
+from pathlib import Path
+
+# Define the relative path to the image
+image_path = Path('images/banner-image.jpg')  # Replace with your relative image path
+
+# Display the image as a banner
+st.markdown(
+    """
+    <style>
+        .banner-image {
+            width: 100%;  /* Makes the banner stretch across the entire width of the page */
+            height: 200px;  /* Adjust the height of the banner */
+            object-fit: cover;  /* Ensures the image maintains aspect ratio while covering the area */
+        }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
+# Display the image from the relative path
+st.markdown(f'<img class="banner-image" src="{image_path}" />', unsafe_allow_html=True)
+
+# Main content
+st.header("Welcome to the App!")
+st.write("This is an app with a custom banner image at the top.")
