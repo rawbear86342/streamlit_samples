@@ -1,0 +1,11 @@
+    uploaded_file = st.file_uploader("Click to upload a file", type=["txt", "pdf", "docx"], label_visibility="collapsed")
+    
+    if uploaded_file:
+        file_size_mb = uploaded_file.size / (1024 * 1024)  # Get file size in MB
+        st.session_state.uploaded_files.append({"name": uploaded_file.name, "size": round(file_size_mb, 2)})
+        st.experimental_rerun()
+
+    # Show uploaded files with sleek display
+    for file_data in st.session_state.uploaded_files:
+        st.write(f"📄 {file_data['name']} ({file_data['size']} MB)")
+
