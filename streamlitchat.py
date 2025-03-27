@@ -108,7 +108,7 @@ for chat_id, chat in st.session_state.all_chats.items():
             st.session_state.message_citations = {}
 
 # Chat window
-st.title("Dialog with Contracts")
+st.title("LLM Chat Bot")
 
 for i, message in enumerate(st.session_state.current_chat):
     with st.chat_message(message["role"]):
