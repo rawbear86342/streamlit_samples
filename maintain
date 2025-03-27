@@ -1,0 +1,16 @@
+@echo off
+
+REM Database file path
+set DB_FILE=chat_history.db
+
+REM SQL command to truncate the 'chats' table
+set SQL_COMMAND=DELETE FROM chats;
+
+REM Execute the SQL command using sqlite3
+sqlite3 %DB_FILE% "%SQL_COMMAND%"
+
+REM Verify the truncation (optional)
+echo Chat history truncated.
+sqlite3 %DB_FILE% "SELECT COUNT(*) FROM chats;"
+
+pause
