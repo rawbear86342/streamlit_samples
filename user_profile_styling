@@ -18,3 +18,27 @@ st.markdown("""
 user_name = "👤 **User:** John Doe"
 last_login = "🕒 Last Login: March 27, 2025"
 st.markdown(f'<div class="user-info">{user_name} | {last_login}</div>', unsafe_allow_html=True)
+
+
+
+import streamlit as st
+
+# Set page config
+st.set_page_config(page_title="AI Chatbot", layout="wide")
+
+# User Info Section
+st.markdown("""
+    <style>
+        .user-info {
+            background-color: #f0f2f6;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+user_name = "👤 **User:** John Doe"
+last_login = "🕒 Last Login: March 27, 2025"
+st.markdown(f'<div class="user-info">{user_name} | {last_login}</div>', unsafe_allow_html=True)
+
