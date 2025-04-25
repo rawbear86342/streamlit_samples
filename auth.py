@@ -23,6 +23,9 @@ if 'token' not in st.session_state:
 if 'user' not in st.session_state:
     st.session_state.user = None
 
+st.markdown(f'<meta http-equiv="refresh" content="0;url={login_url()}">', unsafe_allow_html=True)
+st.stop()
+
 def login_url():
     state = secrets.token_urlsafe(16)
     st.session_state['state'] = state
