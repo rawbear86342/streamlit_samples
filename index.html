@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Redirect</title>
+    <script>
+        const pingAuthorizeURL = "https://your-pingfederate.example.com/as/authorization.oauth2?client_id=your-client-id&response_type=token&redirect_uri=http://localhost:8000&scope=openid%20profile%20email";
+
+        function getAccessTokenFromHash() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            return params.get("access_token");
+        }
+
+        (function() {
+            let accessToken = getAccessTokenFromHash();
+
+            if (accessToken) {
+                // Save token in localStorage
+                localStorage.setItem("access_token", accessToken);
+                // Clean URL
+                window.history.replaceState(null, null, window.location.pathname);
+                // Reload Chainlit app
+                window.location.reload();
+            } else {
+                const storedToken = localStorage.getItem("access_token");
+                if (!storedToken) {
+                    window.location.href = pingAuthorizeURL;
+                }
+            }
+        })();
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+</body>
+</html>
