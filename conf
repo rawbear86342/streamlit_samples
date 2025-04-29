@@ -1,0 +1,6 @@
+CHAINLIT_AUTH_AUTH_TYPE=oauth
+CHAINLIT_AUTH_AUTHORIZATION_URL=https://your-company.pingidentity.com/as/authorization.oauth2
+CHAINLIT_AUTH_TOKEN_URL=https://your-company.pingidentity.com/as/token.oauth2
+CHAINLIT_AUTH_CLIENT_ID=YOUR_CLIENT_ID
+CHAINLIT_AUTH_CALLBACK_URL=http://localhost:8000
+CHAINLIT_AUTH_SCOPES=openid profile email
